@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   utils.c                                            :+:      :+:    :+:   */
+/*   utils_bonus.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pablo <pablo@student.42.fr>                +#+  +:+       +#+        */
+/*   By: pablgarc <pablgarc@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/22 11:45:13 by pablgarc          #+#    #+#             */
-/*   Updated: 2024/09/26 23:18:16 by pablo            ###   ########.fr       */
+/*   Updated: 2024/09/27 18:14:38 by pablgarc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -106,7 +106,7 @@ void	here_doc(t_data *data, int *argc, char ***argv)
 	data->infile = FILE_TEMP;
 	*argc = *argc - 1;
 	*argv = *argv + 1;
-	data->input_fd = open(FILE_TEMP, O_WRONLY | O_CREAT | O_TRUNC, 0644);
+	data->input_fd = open(FILE_TEMP, O_WRONLY | O_CREAT | O_APPEND, 0644);
 	if (data->input_fd == -1)
 		free_all_stop(data, 0, 1, "1");
 	while (1)
