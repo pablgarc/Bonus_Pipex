@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   pipex.c                                            :+:      :+:    :+:   */
+/*   pipex_bonus.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: pablo <pablo@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/22 09:55:01 by pablgarc          #+#    #+#             */
-/*   Updated: 2024/09/26 23:18:11 by pablo            ###   ########.fr       */
+/*   Updated: 2024/09/28 23:22:08 by pablo            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -98,8 +98,7 @@ int	main(int argc, char **argv, char **envp)
 
 	if (argc < 5)
 	{
-		ft_putstr_fd("Error: Not enough arguments. \
-			Usage: infile \"command 1\" \"command 2\" output file\n", 1);
+		ft_putstr_fd("Error: Not enough arguments. \n", 2);
 		return (1);
 	}
 	data.error = 0;

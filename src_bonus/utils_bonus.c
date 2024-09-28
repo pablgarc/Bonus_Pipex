@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils_bonus.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pablgarc <pablgarc@student.42.fr>          +#+  +:+       +#+        */
+/*   By: pablo <pablo@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/22 11:45:13 by pablgarc          #+#    #+#             */
-/*   Updated: 2024/09/27 18:14:38 by pablgarc         ###   ########.fr       */
+/*   Updated: 2024/09/28 23:28:02 by pablo            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,32 +58,6 @@ void	redirect_output(t_data *data)
 	}
 	if (close(outfile_fd) == -1)
 		perror("Failed to close the file descriptor");
-}
-
-void	get_cmd(t_data *data, char **envp, char *cmd)
-{
-	char	**path;
-	int		i;
-
-	i = 0;
-	while (envp[i] && ft_strncmp(envp[i], "PATH=", 5) != 0)
-		i++;
-	path = ft_split(envp[i] + 5, ':');
-	if (!path)
-		free_all_stop(data, 0, 1, "Failed to allocate memory\n");
-	i = -1;
-	while (path[++i])
-	{
-		get_path(data, cmd, path[i]);
-		if (access(data->path, 0) == 0)
-			break ;
-		free(data->path);
-		data->path = NULL;
-	}
-	path = ft_free_str(path);
-	if (!data->path)
-		free_all_stop(data, 1, 127, ft_strjoinf("zsh: command not found: ", cmd,
-				0));
 }
 
 void	get_path(t_data *data, char *cmd, char *path)

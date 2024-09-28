@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   pipex.h                                            :+:      :+:    :+:   */
+/*   pipex_bonus.h                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: pablo <pablo@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/22 09:52:07 by pablgarc          #+#    #+#             */
-/*   Updated: 2024/09/26 23:17:59 by pablo            ###   ########.fr       */
+/*   Updated: 2024/09/28 23:20:10 by pablo            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,9 @@ void		free_all_stop(t_data *data, int is_malloc, int error,
 				char *message);
 void		redirect_output(t_data *data);
 void		get_cmd(t_data *data, char **envp, char *cmd);
+void		get_cmd_from_path(t_data *data, char *cmd, char **envp);
 void		get_path(t_data *data, char *cmd, char *path);
 void		here_doc(t_data *data, int *ac, char ***av);
+int			check_direct_path(t_data *data, char *cmd);
 
 #endif
