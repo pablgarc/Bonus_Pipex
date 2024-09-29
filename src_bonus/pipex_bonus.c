@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   pipex_bonus.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pablo <pablo@student.42.fr>                +#+  +:+       +#+        */
+/*   By: pablgarc <pablgarc@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/22 09:55:01 by pablgarc          #+#    #+#             */
-/*   Updated: 2024/09/28 23:22:08 by pablo            ###   ########.fr       */
+/*   Updated: 2024/09/29 08:52:55 by pablgarc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,10 +16,10 @@ void	ft_execute(t_data *data, int cmd_index, int num_cmds)
 {
 	if (cmd_index < num_cmds - 1)
 		if (pipe(data->fd) == -1)
-			free_all_stop(data, 0, 1, "1");
+			ft_free(data, 0, 1, "1");
 	data->pid[cmd_index] = fork();
 	if (data->pid[cmd_index] == -1)
-		free_all_stop(data, 0, 1, "1");
+		ft_free(data, 0, 1, "1");
 	if (data->pid[cmd_index] == 0 && data->input_fd != -5)
 		child(data, cmd_index, num_cmds);
 	else
@@ -31,13 +31,13 @@ void	child(t_data *data, int cmd_index, int num_cmds)
 	if (data->input_fd != STDIN_FILENO)
 	{
 		if (dup2(data->input_fd, STDIN_FILENO) == -1)
-			free_all_stop(data, 0, 1, "1");
+			ft_free(data, 0, 1, "1");
 		close(data->input_fd);
 	}
 	if (cmd_index < num_cmds - 1)
 	{
 		if (dup2(data->fd[1], STDOUT_FILENO) == -1)
-			free_all_stop(data, 0, 1, "1");
+			ft_free(data, 0, 1, "1");
 		close(data->fd[0]);
 		close(data->fd[1]);
 	}
@@ -46,7 +46,7 @@ void	child(t_data *data, int cmd_index, int num_cmds)
 	data->split = ft_split(data->cmd[cmd_index], ' ');
 	get_cmd(data, data->envp, data->split[0]);
 	if (execve(data->path, data->split, data->envp) == -1)
-		free_all_stop(data, 0, 1, "1");
+		ft_free(data, 0, 1, "1");
 	data->split = ft_free_str(data->split);
 }
 
@@ -75,7 +75,7 @@ static void	init(t_data *data, int *argc, char ***argv)
 	data->cmd = ft_calloc(*argc - 2, sizeof(char *));
 	data->pid = ft_calloc(*argc - 2, sizeof(char *));
 	if (!data->cmd)
-		free_all_stop(data, 0, 1, NULL);
+		ft_free(data, 0, 1, NULL);
 	if (data->limiter == NULL)
 	{
 		data->infile = (*argv)[1];
@@ -113,6 +113,6 @@ int	main(int argc, char **argv, char **envp)
 	init(&data, &argc, &argv);
 	ft_execute(&data, 0, argc - 3);
 	close(data.input_fd);
-	free_all_stop(&data, 0, WEXITSTATUS(data.error), NULL);
+	ft_free(&data, 0, WEXITSTATUS(data.error), NULL);
 	return (0);
 }

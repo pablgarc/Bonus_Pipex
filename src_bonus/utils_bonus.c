@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   utils_bonus.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pablo <pablo@student.42.fr>                +#+  +:+       +#+        */
+/*   By: pablgarc <pablgarc@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/22 11:45:13 by pablgarc          #+#    #+#             */
-/*   Updated: 2024/09/28 23:28:02 by pablo            ###   ########.fr       */
+/*   Updated: 2024/09/29 08:53:16 by pablgarc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/pipex_bonus.h"
 
-void	free_all_stop(t_data *data, int is_malloc, int error, char *message)
+void	ft_free(t_data *data, int is_malloc, int error, char *message)
 {
 	if (data->limiter)
 		unlink(FILE_TEMP);
@@ -50,11 +50,11 @@ void	redirect_output(t_data *data)
 	else
 		outfile_fd = open(data->outfile, O_WRONLY | O_CREAT | O_TRUNC, 0644);
 	if (outfile_fd == -1)
-		free_all_stop(data, 0, 1, "1");
+		ft_free(data, 0, 1, "1");
 	if (dup2(outfile_fd, STDOUT_FILENO) == -1)
 	{
 		close(outfile_fd);
-		free_all_stop(data, 0, 1, "1");
+		ft_free(data, 0, 1, "1");
 	}
 	if (close(outfile_fd) == -1)
 		perror("Failed to close the file descriptor");
@@ -82,13 +82,13 @@ void	here_doc(t_data *data, int *argc, char ***argv)
 	*argv = *argv + 1;
 	data->input_fd = open(FILE_TEMP, O_WRONLY | O_CREAT | O_APPEND, 0644);
 	if (data->input_fd == -1)
-		free_all_stop(data, 0, 1, "1");
+		ft_free(data, 0, 1, "1");
 	while (1)
 	{
 		write(1, "pipe heredoc> ", 14);
 		line = get_next_line(0);
 		if (!line)
-			free_all_stop(data, 0, 1, "1");
+			ft_free(data, 0, 1, "1");
 		if (ft_strncmp(line, data->limiter, ft_strlen(data->limiter)) == 0)
 			if (ft_strlen(line) - 1 == ft_strlen(data->limiter))
 				break ;

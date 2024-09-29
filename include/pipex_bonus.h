@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   pipex_bonus.h                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pablo <pablo@student.42.fr>                +#+  +:+       +#+        */
+/*   By: pablgarc <pablgarc@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/22 09:52:07 by pablgarc          #+#    #+#             */
-/*   Updated: 2024/09/28 23:20:10 by pablo            ###   ########.fr       */
+/*   Updated: 2024/09/29 08:52:00 by pablgarc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,7 @@ void		child(t_data *data, int cmd_index, int num_cmds);
 void		parent(t_data *data, int cmd_index, int num_cmds);
 
 // tools.c
-void		free_all_stop(t_data *data, int is_malloc, int error,
+void		ft_free(t_data *data, int is_malloc, int error,
 				char *message);
 void		redirect_output(t_data *data);
 void		get_cmd(t_data *data, char **envp, char *cmd);
